@@ -1,13 +1,12 @@
 'use client'
 
-import { swell } from "./init";
-
+import { swell } from "./init/client";
 import { useEffect, useState } from 'react'
 import { Cart } from "swell-js/types/cart";
 
 
 
-const useCart = () => {
+export const useCart = () => {
   const [cart, setCart] = useState<Cart | null>();
 
   useEffect(() => {
@@ -20,11 +19,11 @@ const useCart = () => {
 }
 
 
-const useImages = (product: any) => {
+// useImages takes a product and/or variant and returns all unique images associated with the product and/or variant.
+export const useImages = (product: any) => {
   const [images, setImages] = useState<[]>();
 
   useEffect(() => {
-      // check if incoming object is product or variant by checking if the object has parent_id.
       const productImages = product?.images?.map((image: any) => image);
       const variantImages = product?.variants?.results.map((variant: { images: any; }) => variant.images).flat().map((image: any) => image);
       const allImages = productImages?.concat(variantImages).flat().filter((v: { file: { md5: any; }; },i: any,a: any[])=>a.findIndex(v2=>(v2.file.md5===v.file?.md5))===i)
@@ -37,7 +36,7 @@ const useImages = (product: any) => {
 }
 
 
-const useVariant = (product: swell.Product, options: object) => {
+export const useVariant = (product: swell.Product, options: object) => {
   // options are an object like { Color: 'Red', Size: 'Small' }
 
   const [variant, setVariant] = useState<object | null>();
@@ -54,12 +53,4 @@ const useVariant = (product: swell.Product, options: object) => {
   })
 
   return {variant}
-};
-
-
-
-
-
-export { useCart, useImages, useVariant }
-
-
+}
