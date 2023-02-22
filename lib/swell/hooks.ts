@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { Cart } from "swell-js/types/cart";
 
 
+
 const useCart = () => {
   const [cart, setCart] = useState<Cart | null>();
 
@@ -36,7 +37,7 @@ const useImages = (product: any) => {
 }
 
 
-export const useVariant = (product: swell.Product, options: object) => {
+const useVariant = (product: swell.Product, options: object) => {
   // options are an object like { Color: 'Red', Size: 'Small' }
 
   const [variant, setVariant] = useState<object | null>();
@@ -59,6 +60,6 @@ export const useVariant = (product: swell.Product, options: object) => {
 
 
 
-export { useCart, useImages }
+export { useCart, useImages, useVariant }
 
 
