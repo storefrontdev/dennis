@@ -4,18 +4,39 @@ import { swell } from "./init/client";
 import { useEffect, useState } from 'react'
 import { Cart } from "swell-js/types/cart";
 
-
-
+// useCart returns the current cart and functions to add, remove, and update items in the cart.
 export const useCart = () => {
   const [cart, setCart] = useState<Cart | null>();
 
-  useEffect(() => {
-    swell.cart.get().then((cart) => {
-      setCart(cart);
-    });
-  }, [cart]);
+  const initializeCart = async () => {
+    let cart = await swell.cart.get() || {};
+    setCart(cart);
+  }
 
-  return { cart, addItem: swell.cart.addItem, removeItem: swell.cart.removeItem, updateItem: swell.cart.updateItem };
+  useEffect(() => {
+    initializeCart();
+  }, []);
+
+  return { 
+    cart, 
+    addItem: (
+      product_id: string,
+      quantity: number,
+      variant_id: string,
+    ) => {
+      swell.cart.addItem({
+        product_id: product_id,
+        quantity: quantity,
+        variant_id: variant_id,
+      })
+    }, 
+    removeItem: swell.cart.removeItem, 
+    updateItem: swell.cart.updateItem, 
+    getProducts: async () => await swell.products.list({
+      limit: 5,
+      page:1
+    })
+  };
 }
 
 
@@ -27,6 +48,8 @@ export const useImages = (product: any) => {
       const productImages = product?.images?.map((image: any) => image);
       const variantImages = product?.variants?.results.map((variant: { images: any; }) => variant.images).flat().map((image: any) => image);
       const allImages = productImages?.concat(variantImages).flat().filter((v: { file: { md5: any; }; },i: any,a: any[])=>a.findIndex(v2=>(v2.file.md5===v.file?.md5))===i)
+      
+      console.log(allImages[0])
       setImages(allImages);
   
   }, [product]);
@@ -54,3 +77,4 @@ export const useVariant = (product: swell.Product, options: object) => {
 
   return {variant}
 }
+

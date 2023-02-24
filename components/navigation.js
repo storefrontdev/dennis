@@ -27,7 +27,7 @@ const Navigation = () => {
             </div>
           ))}
           <div>
-            <span className="text-white font-bold text-lg">Cart: {cart?.itemQuantity || 0}</span>
+            <span className="text-white font-bold text-lg">Cart: {cart?.item_quantity || "n"}</span>
           </div>
         </div>
       </div>
