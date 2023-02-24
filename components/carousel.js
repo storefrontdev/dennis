@@ -110,8 +110,8 @@ const Carousel = ({product}) => {
                   className={classNames(
                     "duration-700 ease-in-out group-hover:opacity-75 transition-all object-contain object-center border border-gray-100 shadow-sm",
                     isLoading
-                      ? "bg-gray-200"
-                      : "bg-white"
+                      ? "bg-white opacity-0"
+                      : "bg-white opacity-100"
                   )}
                   onLoadingComplete={() => setLoading(false)}
                 />

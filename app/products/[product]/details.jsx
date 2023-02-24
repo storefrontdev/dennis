@@ -1,16 +1,25 @@
 'use client'
-
+import { useEffect } from 'react'
 import { useCart } from '@/lib/swell/hooks'
 
 const Details = ({ product }) => {
 
-  const { addItem, getProducts } = useCart();
+  const { addItem, swell } = useCart();
   const { id, name, price, description} = product;
 
- // return products from async function
-  getProducts().then((products) => {
-    console.log(products);
-  });
+
+ 
+    // addItem(
+    //   {
+    //     product_id: id, 
+    //     quantity: 1, 
+    //     options: [
+    //       { name: 'Flavor', value: 'Double Chocolate' },
+    //       { name: 'Size', value: '12 Count' }
+    //     ]
+    //   }
+    // )
+
   
   return (
     <div className="flex flex-col space-y-5">
@@ -20,7 +29,21 @@ const Details = ({ product }) => {
       </div>
       <div className="text-xs" dangerouslySetInnerHTML={{ __html: description }} />
       <div className="flex">
-        <button className="w-full bg-black text-white px-5 py-4" onClick={() => addItem({product_id: id, quantity: 1})}>Add {name} to Cart</button>
+        <button 
+          className="w-full bg-black text-white px-5 py-4" 
+          onClick={() => 
+            addItem({
+              product_id: id,
+              quantity: 1,
+              options: [
+                { name: 'Flavor', value: 'Double Chocolate' },
+                { name: 'Size', value: '12 Count' }
+              ]
+            }) 
+          }
+        >
+          Add {name} to Cart
+        </button>
       </div>
     </div>
   );
