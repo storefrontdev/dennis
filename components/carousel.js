@@ -149,7 +149,7 @@ const Carousel = ({product}) => {
   return (
     <section>
       <div className="w-full flex flex-col align-center">
-        <div className="relative h-screen w-full overflow-hidden">
+        <div className="relative h-[400px] md:h-screen w-full overflow-hidden">
           
             <div className="hidden absolute inset-y-0 x-l-0 z-10">
               <button aria-label="previous" type="button" className="bg-black text-white w-10 h-10 rounded-full p-3 shadow-lg" onClick={() => swipeToImage(-1)}></button>
@@ -185,7 +185,7 @@ const Carousel = ({product}) => {
             variants={thumbnails}
             initial="hidden"
             animate="visible"
-            className="absolute bottom-10 flex flex-col justify-center md:justify-start space-y-3 z-50"
+            className="absolute bottom-10 flex flex-col justify-center md:justify-start space-y-3 z-30"
           >
           {media?.map((image, i) => (
             <motion.div

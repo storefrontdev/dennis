@@ -32,10 +32,10 @@ const Details = ({ product }) => {
 
 
   return (
-    <div className="flex flex-col h-screen justify-between px-8 py-5 space-y-10">
+    <div className="flex flex-col min-h-screen justify-between px-8 py-5 space-y-10">
       <div>
         <div className="flex items-center justify-center">
-          <h1 className="text-6xl font-bold text-brigh-blue-900">{name}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-brigh-blue-900">{name}</h1>
         </div>
         <div className="mt-5 text-l md:text-xl text-bright-blue-900" dangerouslySetInnerHTML={{ __html: description }} />
       </div>
