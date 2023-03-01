@@ -176,7 +176,7 @@ const Carousel = ({product}) => {
                
                 >
                 <Image
-                    src={media?.url}
+                    src={media[activeImageIndex].url}
                     alt={"image " + activeImageIndex}
                     fill
                     draggable={false}
