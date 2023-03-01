@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { wrap } from "@popmotion/popcorn"
 import Image from "next/image"
-import { useImages, useMedia } from '@/lib/swell/hooks'
+import { useMedia } from '@/lib/swell/hooks'
 
 
 const classNames = (...classes) => {
@@ -116,8 +116,8 @@ const Carousel = ({product}) => {
           quality={100}
           priority={activeImageIndex == 0 ? true : false }
           className={classNames(
-            "duration-700 ease-in-out group-hover:opacity-75 transition-all object-cover object-center border border-gray-100 shadow-sm",
-            isLoading ? "bg-gray-300 blur-3xl opacity-90" : "opacity-100"
+            "duration-700 ease-in-out group-hover:opacity-75 transition-all object-cover object-center shadow-sm",
+            isLoading ? "bg-gray-300 blur-3xl opacity-50" : "opacity-100"
             )}
           onLoadingComplete={() => setLoading(false)}
         />
@@ -175,9 +175,21 @@ const Carousel = ({product}) => {
                 className={classNames(`absolute h-full w-full cursor-grab active:cursor-grabbing overflow-hidden`)}
                
                 >
-                <Media media={media[activeImageIndex]} activeImageIndex={activeImageIndex} />
-              </motion.div>
-            </AnimatePresence>
+                <Image
+                    src={media?.url}
+                    alt={"image " + activeImageIndex}
+                    fill
+                    draggable={false}
+                    quality={100}
+                    priority={activeImageIndex == 0 ? true : false }
+                    className={classNames(
+                      "duration-700 ease-in-out group-hover:opacity-75 transition-all object-cover object-center border border-gray-100 shadow-sm",
+                      isLoading ? "bg-gray-300 blur-3xl opacity-50" : "opacity-100"
+                      )}
+                    onLoadingComplete={() => setLoading(false)}
+                  />
+                </motion.div>
+              </AnimatePresence>
           )}
 
           <motion.div 

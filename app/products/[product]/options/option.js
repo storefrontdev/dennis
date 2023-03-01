@@ -30,7 +30,7 @@ const Option = ({ option, setSelectedOptions }) => {
                 {option.values.map((value, i) => (
                    <RadioGroupItem key={i} value={value} id={value.id} >
                     {value.image && (
-                      <div className="relative h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
+                      <div className="relative h-16 w-16 rounded-full bg-white flex items-center justify-center">
                           <Image
                             src={value.image.file.url}
                             alt={value.name}
@@ -41,7 +41,7 @@ const Option = ({ option, setSelectedOptions }) => {
                     )}
               
                     {!value.image && (
-                      <div className="text-xs uppercase px-4 py-2 relative rounded-full bg-gray-200 flex items-center justify-center">
+                      <div className="text-xs uppercase px-4 py-2 relative rounded-full bg-white flex items-center justify-center">
                         {value.name}
                       </div>
                     )}
