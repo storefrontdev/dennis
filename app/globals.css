@@ -4,7 +4,8 @@
 
 
 
-
-.thumbnails .thumbnail-container:not(:last-of-type) {
-  margin-right: 5px;
+video {
+  /* override other styles to make responsive */
+  width: 100%    !important;
+  height: 100%   !important;
 }

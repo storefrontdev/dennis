@@ -43,11 +43,16 @@ export const useImages = (product: any) => {
   const [images, setImages] = useState<[]>();
 
   useEffect(() => {
-      const productImages = product?.images?.map((image: any) => image);
-      const variantImages = product?.variants?.results.map((variant: { images: any; }) => variant.images).flat().map((image: any) => image);
-      const allImages = productImages?.concat(variantImages).flat().filter((v: { file: { md5: any; }; },i: any,a: any[])=>a.findIndex(v2=>(v2.file.md5===v.file?.md5))===i)
+    const productImages = product?.images?.map((image: any) => image.file);
+
+    // filter through the product variants images and return the file object into a new array
+
+    const variantImages = product?.variants?.results.map((variant: { images: any; }) => variant.images).flat().map((image: any) => image.file);
+
+
+    // combine the productImages and variantImages into one array and remove duplicates use the md5 hash
+    const allImages = productImages?.concat(variantImages).flat().filter((v: { md5: any; },i: any,a: any[])=>a.findIndex(v2=>(v2.md5===v.md5))===i)
       
-      console.log(allImages[0])
       setImages(allImages);
   
   }, [product]);
@@ -55,6 +60,85 @@ export const useImages = (product: any) => {
 
   return {images}
 }
+
+
+export const useMedia = (product: any) => {
+  const [media, setMedia] = useState<[]>();
+
+  useEffect(() => {
+      const productMedia = product?.media?.map((media: any) => media);
+      const productImages = product?.images?.map((image: any) => image.file);
+
+      // filter through the product variants images and return the file object into a new array
+
+      const variantImages = product?.variants?.results.map((variant: { images: any; }) => variant.images).flat().map((image: any) => image.file);
+
+
+      // combine the productImages and variantImages into one array and remove duplicates use the md5 hash
+      const allImages = productImages?.concat(variantImages).flat().filter((v: { md5: any; },i: any,a: any[])=>a.findIndex(v2=>(v2.md5===v.md5))===i)
+
+      // merge productMedia and allImages into one array and remove duplicates use the md5 hash
+      const allMedia = productMedia?.concat(allImages).flat().filter((v: { md5: any; },i: any,a: any[])=>a.findIndex(v2=>(v2.md5===v.md5))===i)
+     
+      
+      setMedia(allMedia);
+  
+  }, [product]);
+  
+
+
+  return {
+    media
+  }
+}
+
+
+  const useOptions = (product: any) => {
+
+    function unique(value: any, index: any, self: string | any[]) {
+      return self.indexOf(value) === index;
+    }
+    
+    const options = product?.options?.filter(unique);
+
+    return {
+      options
+    }
+  }
+
+  export { useOptions }
+
+
+  export const useSelectedOptions = () => {
+    const [selectedOptions, setSelectedOptions] = useState([{}]);
+
+    useEffect(() => {
+      setSelectedOptions((selectedOptions) => [...selectedOptions]);
+    }, []);
+
+    return {selectedOptions, setSelectedOptions}
+  }
+
+
+
+
+
+const useVariants = (product: any) => {
+
+  function unique(value: any, index: any, self: string | any[]) {
+    return self.indexOf(value) === index;
+  }
+
+  let v = product?.variants?.results?.flat()
+  let variants = v?.filter(unique);
+
+  return {
+    variants
+  }
+}
+
+export { useVariants }
+
 
 
 export const useVariant = (product: swell.Product, options: object) => {
@@ -69,9 +153,7 @@ export const useVariant = (product: swell.Product, options: object) => {
     return v
   }
 
-  getVariant().then((variant) => {
-    setVariant(variant);
-  })
+  getVariant().then((variant) =>  setVariant(variant))
 
   return {variant}
 }
