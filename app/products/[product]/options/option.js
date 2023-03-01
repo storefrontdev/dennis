@@ -1,5 +1,5 @@
-
-import { RadioGroup } from "@/components/ui/radio-group";
+import Image from "next/image";
+import { RadioGroup, RadioGroupItem  } from "@/components/ui/radio-group";
 import { Label } from "@radix-ui/react-label";
 import { useEffect, useState } from "react";
 import Value from "./value";
@@ -26,10 +26,27 @@ const Option = ({ option, setSelectedOptions }) => {
             </span>
           </Label>
           <RadioGroup defaultValue={activeOption} onValueChange={(value) => setActiveOption(value)}>
-            <div className="flex items-center space-x-2">
-              {option.values.map((value, i) => (
-                <Value key={i} value={value} />
-              ))}
+            <div className="flex items-center space-x-2 mt-2">
+                {option.values.map((value, i) => (
+                   <RadioGroupItem key={i} value={value} id={value.id} >
+                    {value.image && (
+                      <div className="relative h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
+                          <Image
+                            src={value.image.file.url}
+                            alt={value.name}
+                            fill
+                            className="object-cover object-center rounded-full w-full h-full"
+                          />
+                      </div>
+                    )}
+              
+                    {!value.image && (
+                      <div className="text-xs uppercase px-4 py-2 relative rounded-full bg-gray-200 flex items-center justify-center">
+                        {value.name}
+                      </div>
+                    )}
+                  </RadioGroupItem>
+                ))}
             </div>
           </RadioGroup>
                

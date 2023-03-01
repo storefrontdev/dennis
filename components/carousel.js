@@ -172,8 +172,7 @@ const Carousel = ({product}) => {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={1}
                 onDragEnd={(_, dragInfo) => dragEndHandler(dragInfo)}
-                className={classNames(`absolute h-full w-full cursor-grab active:cursor-grabbing overflow-hidden`,
-                )}
+                className={classNames(`absolute h-full w-full cursor-grab active:cursor-grabbing overflow-hidden`)}
                
                 >
                 <Media media={media[activeImageIndex]} activeImageIndex={activeImageIndex} />
@@ -193,7 +192,7 @@ const Carousel = ({product}) => {
               custom={i}
               variants={thumbnail}
               onClick={() => skipToImage(i)}
-              className="relative rounded-full h-10 w-10 md:h-16 md:w-16 mr-2 cursor-pointer mr-3 md:mr-5 last-of-type:mr-0 shadow-sm overflow-hidden"
+              className="relative rounded-full h-14 w-14 md:h-16 md:w-16 mr-2 cursor-pointer mr-3 md:mr-5 last-of-type:mr-0 shadow-sm overflow-hidden"
             >
               <MediaThumbnails media={image} thumbnailIndex={i} activeImageIndex={activeImageIndex} />
             </motion.div>
