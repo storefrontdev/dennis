@@ -35,7 +35,10 @@ export const useCart = () => {
   }, [count, itemQuantity])
 
   const getCart = async () => {
+    // get the cart from swell with useEffect
+  
     let cart = await swell.cart.get() || {};
+
     setCart(cart)
   }
 

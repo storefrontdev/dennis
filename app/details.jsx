@@ -46,16 +46,16 @@ const Details = ({ product }) => {
           </div>
         )}
 
-        <Tabs defaultValue="subscribe" className="mt-10 w-full h-full">
+        <Tabs defaultValue="subscribe" className="mt-10 w-full h-full min-h-[200px]">
           <TabsList className="w-full grid grid-cols-2 gap-5">
-            <TabsTrigger value="subscribe" className="col-span-1">Subscribe (10% off)</TabsTrigger>
-            <TabsTrigger value="one-time" className="col-span-1">One-Time</TabsTrigger>
+            <TabsTrigger value="subscribe" className="col-span-1 text-xs md:text-base">Subscribe</TabsTrigger>
+            <TabsTrigger value="one-time" className="col-span-1 text-xs md:text-base">One-Time</TabsTrigger>
           </TabsList>
           <TabsContent value="subscribe">
             <Label>Delivery Frequency</Label>
             {product.purchase_options.subscription && (
               <div className="flex flex-col space-y-5">
-                <Select>
+                <Select defaultValue={`${product.purchase_options.subscription?.plans[0].id}`}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a plan" />
                   </SelectTrigger>

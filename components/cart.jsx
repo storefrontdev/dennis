@@ -32,7 +32,7 @@ const Cart = () => {
             </Dialog.Description>
           </div>
 
-          <div className="flex flex-col jusitfy-start flex-grow  border border-gray-100 space-y-5">
+          <div className="flex flex-col jusitfy-start flex-grow border border-gray-100 space-y-5">
             {cart?.items?.map((item) => (
               <div key={item.id} className="flex items-center space-x-5 shadow-sm">
                 <div className="h-20 w-20 relative">
@@ -45,7 +45,8 @@ const Cart = () => {
                   />
                 </div>
                 <div className="">
-                  <p>{item.product.name}</p>
+                  <p className="font-bold">{item.product.name}</p>
+                  <p className="text-sm">{item.variant?.name}</p>
                   <p className="text-xs">Q: {item.quantity}</p>
                 </div>
               </div>
