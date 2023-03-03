@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useCart, useOptions, useVariant } from '@/lib/swell/hooks'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -24,7 +24,12 @@ const Details = ({ product }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   // const variant = useVariant(product, selectedOptions)
 
-  const [ count, setCount ] = useState(cart?.item_quantity || 0)
+  const [ count, setCount ] = useState(0)
+
+  useEffect(() => {
+    setCount(cart?.item_quantity)
+  }, [])
+
 
   // if cart length increases open cart
   useEffect(() => {

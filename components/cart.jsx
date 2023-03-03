@@ -13,7 +13,12 @@ const Cart = () => {
 
   const { cart, clearCart, setLoading, open, setOpen } = useCart();
 
-  const [ count, setCount ] = useState(cart?.item_quantity || 0)
+  const [ count, setCount ] = useState(0)
+
+  useEffect(() => {
+    setCount(cart?.item_quantity)
+  }, [cart?.item_quantity])
+
 
   // if cart length increases open cart
   useEffect(() => {
