@@ -12,7 +12,7 @@ import { useCart } from '@/lib/swell/hooks';
 const Cart = () => {
 
   const { cart, itemQuantity, clearCart, open, setOpen } = useCart();
-  
+
   return ( 
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>

@@ -1,5 +1,5 @@
 'use client'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCart, useOptions, useVariant } from '@/lib/swell/hooks'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -17,14 +17,16 @@ import Option from "@/app/products/[product]/options/option"
 
 const Details = ({ product }) => {
 
-  const { cart, addItem, loading, setLoading } = useCart()
+  const { addItem, loading } = useCart()
 
   const { id, name, description} = product;
   const { options } = useOptions(product)
   const [selectedOptions, setSelectedOptions] = useState({});
-  // const variant = useVariant(product, selectedOptions)
+  const { variant } = useVariant(product, selectedOptions)
 
-
+  useEffect(() => {
+    console.log('variant', variant)
+  }, [variant])
 
   return (
     <div className="flex flex-col min-h-screen justify-between px-8 py-5 space-y-10">
@@ -84,7 +86,7 @@ const Details = ({ product }) => {
           type="button"
           className="w-full rounded-sm bg-coral-red text-white text-xl px-5 py-8 shadow-md" 
           onClick={() => {
-            addItem({product_id: id, quantity: 1})
+            addItem({product_id: id, quantity: 1, variant_id: variant?.variant_id})
           }}
         >
           {loading ? "Adding to cart..." : `Add ${product.name} to Cart`}

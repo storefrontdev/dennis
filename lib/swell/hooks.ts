@@ -14,29 +14,34 @@ export const useCart = () => {
   const [loading, setLoading] = useState(false);
   const [ itemQuantity, setItemQuantity ] = useState(0)
   const [ count, setCount ] = useState(0)
+  const [ cartState, setCartState ] = useState(false)
+
+  useEffect(() => {
+    setCount(cart?.item_quantity || 0)
+  }, [])
 
   // set item quantity on mount
   useEffect(() => {
     setItemQuantity(cart?.item_quantity || 0)
   }, [cart?.item_quantity])
 
-  // if cart length increases open cart
+  // open cart when item is added
   useEffect(() => {
-    if (cart?.item_quantity > count) {
+    if (itemQuantity > count) {
       setOpen(true)
       setLoading(false)
     }
-    setCount(cart?.item_quantity)
-  }, [cart?.item_quantity])
-
+    setCount(itemQuantity)
+  }, [count, itemQuantity])
 
   const getCart = async () => {
     let cart = await swell.cart.get() || {};
     setCart(cart)
   }
 
+
   const addItem = async (item: CartItem) => {
-    setLoading(true)
+    setLoading(true);
     await swell.cart.addItem(item);
   }
 
@@ -47,6 +52,7 @@ export const useCart = () => {
   const clearCart = async () => {
     await swell.cart.setItems([])
   }
+
 
   // set the cart on mount and then update the cart state when the swell.cart changes
   useEffect(() => {
@@ -61,10 +67,10 @@ export const useCart = () => {
     addItem,
     clearCart,
     removeItem,
-    open,
-    setOpen,
     loading,
-    setLoading
+    setLoading,
+    open,
+    setOpen
   }
 }
 
@@ -175,17 +181,24 @@ export { useVariants }
 export const useVariant = (product: swell.Product, options: object) => {
   // options are an object like { Color: 'Red', Size: 'Small' }
 
-  const [variant, setVariant] = useState<object | null>();
+  // call getVariant on options change and return the variant
+  const [variant, setVariant] = useState<swell.Variant>();
 
-  const getVariant = async () => {
-    // Resolves the variation price, sale_price, orig_price, and stock_status values based on the customer's chosen options.
-    const v = await swell.products.variation(product, options)
+  useEffect(() => {
+    const getVariant = async () => {
+      // Resolves the variation price, sale_price, orig_price, and stock_status values based on the customer's chosen options.
+      const v = await swell.products.variation(product, options)
+  
+      return v
+    }
+  
+    getVariant().then((v) => {
+      setVariant(v)
+    })
+  }, [options, product])
 
-    return v
-  }
+  
 
-  getVariant().then((variant) =>  setVariant(variant))
-
-  return {variant}
+  return { variant }
 }
 

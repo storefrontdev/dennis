@@ -21,6 +21,7 @@ export default function RootLayout({
       <body>
         <Navigation />
         <div className="fixed top-5 right-0 z-40">
+          
           <Cart />
         </div>
         {children}
