@@ -19,6 +19,7 @@ export const useCart = () => {
   }
 
   const addItem = async (item: CartItem) => {
+    setLoading(true)
     await swell.cart.addItem(item);
   }
 
@@ -30,9 +31,6 @@ export const useCart = () => {
     await swell.cart.setItems([])
   }
 
-  const toggleCart = () => {
-    setOpen(!open)
-  }
 
   // set the cart on mount and then update the cart state when the swell.cart changes
   useEffect(() => {
@@ -49,8 +47,7 @@ export const useCart = () => {
     open,
     setOpen,
     loading,
-    setLoading,
-    toggleCart
+    setLoading
   }
 }
 

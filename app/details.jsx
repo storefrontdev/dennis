@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { useCart, useOptions, useVariant } from '@/lib/swell/hooks'
 
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Select,
@@ -18,19 +17,22 @@ import Option from "@/app/products/[product]/options/option"
 
 const Details = ({ product }) => {
 
-  const { addItem, setOpen } = useCart();
+  const { cart, addItem, loading, setLoading } = useCart()
+
   const { id, name, description} = product;
   const { options } = useOptions(product)
-  const variant = useVariant(product, options)
-
-
-
-  // const [activeVariant, setActiveVariant] = useState(null);
-  // const [selectedPurchaseOption, setSelectedPurchaseOption] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState({});
+  // const variant = useVariant(product, selectedOptions)
 
-  const [ loading, setLoading ] = useState(false);
+  const [ count, setCount ] = useState(cart?.item_quantity || 0)
 
+  // if cart length increases open cart
+  useEffect(() => {
+    if (cart?.item_quantity > count) {
+      setLoading(false)
+    }
+    setCount(cart?.item_quantity)
+  }, [cart?.item_quantity, count, setLoading])
 
   return (
     <div className="flex flex-col min-h-screen justify-between px-8 py-5 space-y-10">
@@ -87,10 +89,11 @@ const Details = ({ product }) => {
       
       <div className="flex">
         <button 
+          type="button"
           className="w-full rounded-sm bg-coral-red text-white text-xl px-5 py-8 shadow-md" 
           onClick={() => {
-            addItem({product_id: id, quantity: 1, variant_id: variant.id})
-            .then(() => {setOpen(true); setLoading(false)})
+            setLoading(true)
+            addItem({product_id: id, quantity: 1})
           }}
         >
           {loading ? "Adding to cart..." : `Add ${product.name} to Cart`}

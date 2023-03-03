@@ -1,4 +1,5 @@
 import './globals.css'
+
 import Navigation from '../components/navigation'
 import Cart from '@/components/cart'
 
@@ -8,6 +9,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+
   return (
     <html lang="en">
       {/*

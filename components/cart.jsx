@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
@@ -11,11 +11,19 @@ import { useCart } from '@/lib/swell/hooks';
 
 const Cart = () => {
 
-  const { cart, clearCart, open, setOpen} = useCart();
+  const { cart, clearCart, setLoading, open, setOpen } = useCart();
 
+  const [ count, setCount ] = useState(cart?.item_quantity || 0)
+
+  // if cart length increases open cart
   useEffect(() => {
-    console.log("cart is open: ", open);
-  }, [open]);
+    if (cart?.item_quantity > count) {
+      setOpen(true)
+      setLoading(false)
+    }
+    setCount(cart?.item_quantity)
+  }, [cart?.item_quantity, count, setLoading, setOpen])
+
 
   return ( 
     <Dialog.Root open={open} onOpenChange={setOpen}>
