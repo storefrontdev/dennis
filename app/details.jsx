@@ -14,21 +14,22 @@ import {
 
 import { Label } from "@/components/ui/label"
 import Option from "@/app/products/[product]/options/option"
-import { useVelocity } from 'framer-motion'
 
 
 const Details = ({ product }) => {
 
-  const { addItem } = useCart();
+  const { addItem, setOpen } = useCart();
   const { id, name, description} = product;
   const { options } = useOptions(product)
   const variant = useVariant(product, options)
+
 
 
   // const [activeVariant, setActiveVariant] = useState(null);
   // const [selectedPurchaseOption, setSelectedPurchaseOption] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState({});
 
+  const [ loading, setLoading ] = useState(false);
 
 
   return (
@@ -46,7 +47,6 @@ const Details = ({ product }) => {
             {options.map((option, i) => (
                <Option key={option.id} option={option} setSelectedOptions={setSelectedOptions} />
             ))}
-              
           </div>
         )}
 
@@ -88,15 +88,12 @@ const Details = ({ product }) => {
       <div className="flex">
         <button 
           className="w-full rounded-sm bg-coral-red text-white text-xl px-5 py-8 shadow-md" 
-          onClick={() => 
-            addItem({
-              product_id: id,
-              variant_id: variant?.id,
-              quantity: 1,
-            }) 
-          }
+          onClick={() => {
+            addItem({product_id: id, quantity: 1, variant_id: variant.id})
+            .then(() => {setOpen(true); setLoading(false)})
+          }}
         >
-          Buy Maui Cooler
+          {loading ? "Adding to cart..." : `Add ${product.name} to Cart`}
         </button>
       </div>
     </div>

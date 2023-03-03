@@ -73,6 +73,25 @@ module.exports = {
           900: '#5E0000'
         },
       },
+      keyframes: {
+        overlayShow: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        contentShow: {
+          from: { opacity: 0, transform: 'translateX(100%) scale(1)' },
+          to: { opacity: 1, transform: 'translateX(0) scale(1)' },
+        },
+        contentHide: {
+          from: { opacity: 1, transform: 'translateX(0) scale(1)' },
+          to: { opacity: 0, transform: 'translateX(100%) scale(1)' },
+        },
+      },
+      animation: {
+        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        contentShow: 'contentShow 500ms cubic-bezier(0.16, 1, 0.3, 1)',
+        contentHide: 'contentHide 500ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
     },
   },
   plugins: [],

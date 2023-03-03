@@ -4,13 +4,18 @@ import { swell } from "./init/client";
 import { useEffect, useState } from 'react'
 import { Cart, CartItem } from "swell-js/types/cart";
 
+
+  
+
 // useCart returns the current cart and functions to add, remove, and update items in the cart.
 export const useCart = () => {
-  const [cart, setCart] = useState<Cart | null>();
+  const [cart, setCart] = useState<Cart>();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getCart = async () => {
     let cart = await swell.cart.get() || {};
-    setCart(cart);
+    setCart(cart)
   }
 
   const addItem = async (item: CartItem) => {
@@ -25,15 +30,27 @@ export const useCart = () => {
     await swell.cart.setItems([])
   }
 
+  const toggleCart = () => {
+    setOpen(!open)
+  }
+
+  // set the cart on mount and then update the cart state when the swell.cart changes
   useEffect(() => {
     getCart()
-  }, [cart]);
+  }, [cart])
+
 
   return { 
-    cart, 
+    cart,
+    getCart, 
     addItem,
-    removeItem,
     clearCart,
+    removeItem,
+    open,
+    setOpen,
+    loading,
+    setLoading,
+    toggleCart
   }
 }
 

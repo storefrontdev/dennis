@@ -1,5 +1,7 @@
 import './globals.css'
 import Navigation from '../components/navigation'
+import Cart from '@/components/cart'
+
 
 export default function RootLayout({
   children,
@@ -15,6 +17,9 @@ export default function RootLayout({
       <head />
       <body>
         <Navigation />
+        <div className="fixed top-5 right-0 z-40">
+          <Cart />
+        </div>
         {children}
       </body>
     </html>

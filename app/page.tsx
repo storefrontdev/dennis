@@ -3,9 +3,6 @@ import { getProductBySlug } from "@/lib/swell/products";
 import Carousel from "@/components/carousel";
 import Details from "@/app/details";
 
-
-
-
 // get a single product by slug
 async function getProduct(slug: any) {
   const product = await getProductBySlug(slug)
@@ -15,7 +12,6 @@ async function getProduct(slug: any) {
 export default async function ProductPage() {
 
   const product = await getProduct("maui-cooler");
-
 
   return (
     <main>
