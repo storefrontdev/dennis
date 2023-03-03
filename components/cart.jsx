@@ -33,9 +33,9 @@ const Cart = () => {
   return ( 
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <span className="z-40 cursor-pointer shadow-md bg-energy-yellow-500 text-bright-blue-900 rounded-l-full rounded-r-none px-6 py-4">
+        <button type="button" className="z-40 cursor-pointer shadow-md bg-energy-yellow-500 text-bright-blue-900 rounded-l-full rounded-r-none px-6 py-4">
         { cart?.item_quantity || 0}
-        </span>
+        </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="z-50 bg-black bg-opacity-30 backdrop-blur-sm data-[state=open]:animate-overlayShow fixed inset-0" />
