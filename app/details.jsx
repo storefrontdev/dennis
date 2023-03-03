@@ -24,20 +24,7 @@ const Details = ({ product }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   // const variant = useVariant(product, selectedOptions)
 
-  const [ count, setCount ] = useState(0)
 
-  useEffect(() => {
-    setCount(cart?.item_quantity)
-  }, [])
-
-
-  // if cart length increases open cart
-  useEffect(() => {
-    if (cart?.item_quantity > count) {
-      setLoading(false)
-    }
-    setCount(cart?.item_quantity)
-  }, [cart?.item_quantity, count, setLoading])
 
   return (
     <div className="flex flex-col min-h-screen justify-between px-8 py-5 space-y-10">
@@ -97,7 +84,6 @@ const Details = ({ product }) => {
           type="button"
           className="w-full rounded-sm bg-coral-red text-white text-xl px-5 py-8 shadow-md" 
           onClick={() => {
-            setLoading(true)
             addItem({product_id: id, quantity: 1})
           }}
         >

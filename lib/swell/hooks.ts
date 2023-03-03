@@ -12,6 +12,23 @@ export const useCart = () => {
   const [cart, setCart] = useState<Cart>();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ itemQuantity, setItemQuantity ] = useState(0)
+  const [ count, setCount ] = useState(0)
+
+  // set item quantity on mount
+  useEffect(() => {
+    setItemQuantity(cart?.item_quantity || 0)
+  }, [cart?.item_quantity])
+
+  // if cart length increases open cart
+  useEffect(() => {
+    if (cart?.item_quantity > count) {
+      setOpen(true)
+      setLoading(false)
+    }
+    setCount(cart?.item_quantity)
+  }, [cart?.item_quantity])
+
 
   const getCart = async () => {
     let cart = await swell.cart.get() || {};
@@ -31,7 +48,6 @@ export const useCart = () => {
     await swell.cart.setItems([])
   }
 
-
   // set the cart on mount and then update the cart state when the swell.cart changes
   useEffect(() => {
     getCart()
@@ -40,6 +56,7 @@ export const useCart = () => {
 
   return { 
     cart,
+    itemQuantity,
     getCart, 
     addItem,
     clearCart,

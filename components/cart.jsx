@@ -11,35 +11,18 @@ import { useCart } from '@/lib/swell/hooks';
 
 const Cart = () => {
 
-  const { cart, clearCart, setLoading, open, setOpen } = useCart();
-
-  const [ count, setCount ] = useState(0)
-
-  useEffect(() => {
-    setCount(cart?.item_quantity)
-  }, [cart?.item_quantity])
-
-
-  // if cart length increases open cart
-  useEffect(() => {
-    if (cart?.item_quantity > count) {
-      setOpen(true)
-      setLoading(false)
-    }
-    setCount(cart?.item_quantity)
-  }, [cart?.item_quantity, count, setLoading, setOpen])
-
-
+  const { cart, itemQuantity, clearCart, open, setOpen } = useCart();
+  
   return ( 
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
         <button type="button" className="z-40 cursor-pointer shadow-md bg-energy-yellow-500 text-bright-blue-900 rounded-l-full rounded-r-none px-6 py-4">
-        { cart?.item_quantity || 0}
+        { itemQuantity }
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="z-50 bg-black bg-opacity-30 backdrop-blur-sm data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content className="z-50 min-h-screen flex flex-col justify-between data-[state=open]:animate-contentShow data-[state=closed]:animate-contentHide fixed inset-y-0 right-0 h-screen w-[330px] md:w-[400px] rounded-sm bg-white p-[25px] focus:outline-none">
+        <Dialog.Content className="z-50 h-screen flex flex-col justify-between data-[state=open]:animate-contentShow data-[state=closed]:animate-contentHide fixed inset-y-0 right-0 h-screen w-[330px] md:w-[400px] rounded-sm bg-white p-[25px] focus:outline-none">
           <div>
             <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
               Cart
@@ -67,6 +50,8 @@ const Cart = () => {
                 </div>
               </div>
             ))}
+
+      
           </div>
 
           <div className="mt-[25px] flex flex-col w-full items-center">
