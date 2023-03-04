@@ -1,9 +1,8 @@
 import './globals.css'
 
-import Navigation from '../components/navigation'
-import Cart from '@/components/cart'
-
-
+import Navigation from '@/app/components/navigation'
+import Cart from '@/app/components/cart'
+import { StorefrontProvider } from '@/providers/storefront-provider'
 export default function RootLayout({
   children,
 }: {
@@ -11,20 +10,18 @@ export default function RootLayout({
 }) {
 
 
+
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
       <body>
-        <Navigation />
-        <div className="fixed top-5 right-0 z-40">
-          
+        <StorefrontProvider>
+          <Navigation />
           <Cart />
-        </div>
-        {children}
+          <main>
+            {children}
+          </main>
+        </StorefrontProvider>
       </body>
     </html>
   )

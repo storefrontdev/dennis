@@ -1,7 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { useCart, useOptions, useVariant } from '@/lib/swell/hooks'
 
+import { useContext, useEffect, useState } from 'react'
+import { useOptions, useVariant } from '@/lib/swell/hooks'
+import { StorefrontContext } from '@/providers/storefront-provider'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Select,
@@ -17,7 +18,7 @@ import Option from "@/app/products/[product]/options/option"
 
 const Details = ({ product }) => {
 
-  const { addItem, loading } = useCart()
+  const { addItem, getCart, loading, setLoading, toggleCart } = useContext(StorefrontContext)
 
   const { id, name, description} = product;
   const { options } = useOptions(product)
@@ -31,20 +32,22 @@ const Details = ({ product }) => {
     console.log('variant', variant)
   }, [variant])
 
-  const handlePurchaseOptions = () => {
-    if (purchaseType === 'subscription') {
-      setPurchaseOptions({
-        type: 'subscription',
-        plan_id: purchasePlan,
-      })
-    } else {
-      setPurchaseOptions({
-        type: 'standard',
-      })
-    }
-  }
+
 
   useEffect(() => {
+    const handlePurchaseOptions = () => {
+      if (purchaseType === 'subscription') {
+        setPurchaseOptions({
+          type: 'subscription',
+          plan_id: purchasePlan,
+        })
+      } else {
+        setPurchaseOptions({
+          type: 'standard',
+        })
+      }
+    }
+
     handlePurchaseOptions()
   }, [purchaseType, purchasePlan])
 
@@ -107,7 +110,14 @@ const Details = ({ product }) => {
           type="button"
           className="w-full rounded-sm bg-coral-red text-white text-xl px-5 py-8 shadow-md" 
           onClick={() => {
-            addItem({product_id: id, quantity: 1, variant_id: variant?.variant_id, purchase_option: purchaseOptions})
+            setLoading(true)
+            addItem({product_id: id, quantity: 1, variant_id: variant?.variant_id, purchase_option: purchaseOptions}).then(
+              () => {
+                setLoading(false)
+                getCart();
+                toggleCart(true)
+              }
+            )
           }}
         >
           {loading ? "Adding to cart..." : `Add ${product.name} to Cart`}

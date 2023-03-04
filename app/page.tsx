@@ -1,7 +1,7 @@
 
 import { getProductBySlug } from "@/lib/swell/products";
-import Carousel from "@/components/carousel";
-import Details from "@/app/details";
+import Carousel from "@/app/components/carousel";
+import Details from "@/app/components/details";
 
 // get a single product by slug
 async function getProduct(slug: any) {

@@ -1,7 +1,7 @@
 
 import { getAllProducts, getProductBySlug } from "@/lib/swell/products";
 import Carousel from "@/components/carousel";
-import Details from "../../details"
+import Details from "../../components/details"
 
 
 // get all products from Swell and generate a static page for each one

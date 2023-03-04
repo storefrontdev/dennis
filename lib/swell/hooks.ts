@@ -2,50 +2,18 @@
 
 import { swell } from "./init/client";
 import { useEffect, useState } from 'react'
-import { Cart, CartItem } from "swell-js/types/cart";
+import { CartItem } from "swell-js/types/cart";
 
 
   
 
 // useCart returns the current cart and functions to add, remove, and update items in the cart.
 export const useCart = () => {
-  const [cart, setCart] = useState<Cart>();
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [ itemQuantity, setItemQuantity ] = useState(0)
-  const [ count, setCount ] = useState(0)
-  const [ cartState, setCartState ] = useState(false)
 
-  useEffect(() => {
-    setCount(cart?.item_quantity || 0)
-  }, [])
-
-  // set item quantity on mount
-  useEffect(() => {
-    setItemQuantity(cart?.item_quantity || 0)
-  }, [cart?.item_quantity])
-
-  // open cart when item is added
-  useEffect(() => {
-    if (itemQuantity > count) {
-      setOpen(true)
-      setLoading(false)
-    }
-    setCount(itemQuantity)
-  }, [count, itemQuantity])
-
-  const getCart = async () => {
-    // get the cart from swell with useEffect
-  
-    let cart = await swell.cart.get() || {};
-
-    setCart(cart)
-  }
-
+  const [cart, setCart] = useState<swell.Cart>();
 
   const addItem = async (item: CartItem) => {
-    setLoading(true);
-    await swell.cart.addItem(item);
+    await swell.cart.addItem(item)
   }
 
   const removeItem = async (item: string) => {
@@ -56,24 +24,24 @@ export const useCart = () => {
     await swell.cart.setItems([])
   }
 
+  const getCart = async () => {
+    // get the cart from swell with useEffect
+    let cart = await swell.cart.get() || {};
+    setCart(cart)
+  }
 
-  // set the cart on mount and then update the cart state when the swell.cart changes
   useEffect(() => {
     getCart()
-  }, [cart])
+  }, [])
 
 
   return { 
     cart,
-    itemQuantity,
-    getCart, 
+    setCart,
+    getCart,
     addItem,
     clearCart,
     removeItem,
-    loading,
-    setLoading,
-    open,
-    setOpen
   }
 }
 
