@@ -22,11 +22,32 @@ const Details = ({ product }) => {
   const { id, name, description} = product;
   const { options } = useOptions(product)
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [purchaseOptions, setPurchaseOptions] = useState({})
+  const [purchasePlan, setPurchasePlan] = useState(product.purchase_options.subscription?.plans[0].id)
+  const [purchaseType, setPurchaseType] = useState('subscription')
   const { variant } = useVariant(product, selectedOptions)
 
   useEffect(() => {
     console.log('variant', variant)
   }, [variant])
+
+  const handlePurchaseOptions = () => {
+    if (purchaseType === 'subscription') {
+      setPurchaseOptions({
+        type: 'subscription',
+        plan_id: purchasePlan,
+      })
+    } else {
+      setPurchaseOptions({
+        type: 'standard',
+      })
+    }
+  }
+
+  useEffect(() => {
+    handlePurchaseOptions()
+  }, [purchaseType, purchasePlan])
+
 
   return (
     <div className="flex flex-col min-h-screen justify-between px-8 py-5 space-y-10">
@@ -46,16 +67,16 @@ const Details = ({ product }) => {
           </div>
         )}
 
-        <Tabs defaultValue="subscribe" className="mt-10 w-full h-full min-h-[200px]">
+        <Tabs defaultValue="subscription" className="mt-10 w-full h-full min-h-[200px]">
           <TabsList className="w-full grid grid-cols-2 gap-5">
-            <TabsTrigger value="subscribe" className="col-span-1 text-xs md:text-base">Subscribe</TabsTrigger>
-            <TabsTrigger value="one-time" className="col-span-1 text-xs md:text-base">One-Time</TabsTrigger>
+            <TabsTrigger value="subscription" onClick={() => setPurchaseType('subscription')} className="col-span-1 text-xs md:text-base">Subscribe</TabsTrigger>
+            <TabsTrigger value="standard" onClick={() => setPurchaseType('standard')} className="col-span-1 text-xs md:text-base">One-Time</TabsTrigger>
           </TabsList>
-          <TabsContent value="subscribe">
+          <TabsContent value="subscription">
             <Label>Delivery Frequency</Label>
             {product.purchase_options.subscription && (
               <div className="flex flex-col space-y-5">
-                <Select defaultValue={`${product.purchase_options.subscription?.plans[0].id}`}>
+                <Select defaultValue={`${product.purchase_options.subscription?.plans[0].id}`} onValueChange={setPurchasePlan}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a plan" />
                   </SelectTrigger>
@@ -72,7 +93,7 @@ const Details = ({ product }) => {
               </div>
             )}
           </TabsContent>
-          <TabsContent value="one-time">
+          <TabsContent value="standard">
             <div className="hidden">
              <p>Save 10% by subscribing</p>
             </div>
@@ -86,7 +107,7 @@ const Details = ({ product }) => {
           type="button"
           className="w-full rounded-sm bg-coral-red text-white text-xl px-5 py-8 shadow-md" 
           onClick={() => {
-            addItem({product_id: id, quantity: 1, variant_id: variant?.variant_id})
+            addItem({product_id: id, quantity: 1, variant_id: variant?.variant_id, purchase_option: purchaseOptions})
           }}
         >
           {loading ? "Adding to cart..." : `Add ${product.name} to Cart`}
