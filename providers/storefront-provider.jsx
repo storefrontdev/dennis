@@ -6,6 +6,8 @@ export const StorefrontContext = React.createContext()
 
 export const StorefrontProvider = ({ children }) => {
 
+  const body = document.querySelector("body");
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -14,6 +16,7 @@ export const StorefrontProvider = ({ children }) => {
 
   const toggleCart = () => {
     setOpen(!open)
+    body.classList.toggle("overflow-hidden")
   }
 
 

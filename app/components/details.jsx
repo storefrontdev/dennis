@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select"
 
 import { Label } from "@/components/ui/label"
-import Option from "@/app/products/[product]/options/option"
+import Option from "@/app/components/options/option"
 
 
 const Details = ({ product }) => {

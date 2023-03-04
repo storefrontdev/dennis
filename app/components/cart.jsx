@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Image from 'next/image';
 import { Cross2Icon, UpdateIcon } from '@radix-ui/react-icons';
 import { useCart } from '@/lib/swell/hooks';
@@ -25,6 +25,10 @@ const Cart = () => {
   } = useContext(StorefrontContext);
 
   const { clearCart } = useCart();
+
+  useEffect(() => {
+    console.log('cart', cart)
+  }, [cart])
 
   const thumbnails = {
     visible: {
@@ -120,19 +124,19 @@ const Cart = () => {
                   ))}
               </motion.div>
               <div>
-                <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100">
-                  <div className="flex flex-col">
+                <div className="flex flex-col px-3 py-5 border-t border-gray-200 divide-y divide-gray-200">
+                  <div className="flex justify-between py-2">
                     <p className="text-sm">Subtotal</p>
-                    <p className="text-xl font-bold">${cart?.subTotal?.toFixed(2)}</p>
+                    <p className="text-sm font-bold">${cart?.sub_total}</p>
                   </div>
-                  <div className="flex flex-col">
-                    <p className="text-sm">Total</p>
-                    <p className="text-xl font-bold">${cart?.total?.toFixed(2)}</p>
+                  <div className="flex justify-between py-2">
+                    <p className="text-md">Total</p>
+                    <p className="text-md font-bold">${cart?.grand_total}</p>
                   </div>
                 </div>
-                <div className="flex flex-col items-center justify-center space-y-5 py-5">
-                  <div className="mt-[25px] flex flex-col w-full items-center">
-                    <CartButton swell={swell} customText="Proceed to Checkout" customClass="flex items-center justify-center w-full px-6 py-5 rounded-sm border border-transparent bg-bright-blue-900 text-base font-medium text-white shadow-sm"></CartButton>
+                <div className="flex flex-col w-full pb-5">
+                  <div className="mt-5 flex flex-col w-full items-center">
+                    <CartButton swell={swell} customText="Proceed to Checkout" customClass="flex items-center justify-center w-full px-8 py-5 rounded-sm border border-transparent bg-bright-blue-900 text-base font-medium text-white shadow-sm" />
                     <button type="button" onClick={() => clearCart().then(getCart())} className="mt-3 cursor-pointer">Clear Cart</button>
                   </div>
                 </div>
