@@ -46,7 +46,7 @@ const Cart = () => {
               <div key={item.id} className="flex items-center space-x-5 shadow-sm">
                 <div className="h-20 w-20 relative">
                   <Image
-                    src={item.product.images[0].file.url}
+                    src={item.variant.images[0].file.url || item.product.images[0].file.url}
                     alt={item.product.name}
                     fill
                     className="rounded-sm object-cover object-center"
@@ -56,14 +56,12 @@ const Cart = () => {
                 <div className="">
                   <p className="font-bold">{item.product.name}</p>
                   <p className="text-sm">{item.variant?.name}</p>
-                  {item.purchase_option.type === 'subscription' && (
+                  {item.purchase_option?.type === 'subscription' && (
                     <span className="flex items-center space-x-1">
-                      <UpdateIcon className="h-4 w-4" />
-                      <p className="text-sm">{item.purchase_option.plan_description}</p>
+                      <UpdateIcon className="h-3 w-3" />
+                      <p className="text-xs">{item.purchase_option?.plan_description}</p>
                     </span>
                   )}
-                  <p>{item.purchase_option.plan_description}</p>
-
                   <p className="text-xs">Q: {item.quantity}</p>
                 </div>
               </div>
