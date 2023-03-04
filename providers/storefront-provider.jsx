@@ -6,10 +6,14 @@ export const StorefrontContext = React.createContext()
 
 export const StorefrontProvider = ({ children }) => {
 
-  const body = document.querySelector("body");
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [body, setBody] = useState(null);
+
+  useEffect(() => {
+    setBody(document.querySelector("body"))
+  }, [])
+
 
 
   const { cart, setCart, getCart, addItem, clearCart } = useCart()
