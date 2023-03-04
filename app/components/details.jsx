@@ -113,9 +113,12 @@ const Details = ({ product }) => {
             setLoading(true)
             addItem({product_id: id, quantity: 1, variant_id: variant?.variant_id, purchase_option: purchaseOptions}).then(
               () => {
-                setLoading(false)
-                getCart();
-                toggleCart(true)
+                getCart().then(
+                  () => {
+                    setLoading(false)
+                    toggleCart(true)
+                  }
+                );
               }
             )
           }}
