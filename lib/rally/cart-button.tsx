@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { Rally } from '@rallycommerce/swell';
 import { SwellRallyCheckoutButtonConfig } from '@rallycommerce/swell/build/swell-checkout-button';

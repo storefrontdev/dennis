@@ -6,7 +6,12 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon, UpdateIcon } from '@radix-ui/react-icons';
 import { useCart } from '@/lib/swell/hooks';
 import { swell } from "@/lib/swell/init/client";
-import CartButton from  '@/lib/rally/cart-button'
+import dynamic from 'next/dynamic';
+
+const CartButton = dynamic(() => import('../lib/rally/cart-button'), {
+  loading: () => <p className="text-xs">Loading Checkout Button...</p>,
+  ssr: false,
+})
 
 
 const Cart = () => {
