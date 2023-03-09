@@ -15,7 +15,6 @@ export const StorefrontProvider = ({ children }) => {
   }, [])
 
 
-
   const { cart, setCart, getCart, addItem, clearCart } = useCart()
 
   const toggleCart = () => {

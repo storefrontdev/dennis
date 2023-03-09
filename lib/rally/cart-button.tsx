@@ -23,7 +23,7 @@ const CartButton = (props: CartButtonProps) => {
   };
   if (props.swell && !isInitialized) {
     isInitialized = true;
-    Rally.init(`${process.env.NEXT_RALLY_CLIENT_ID}`, configuration);
+    Rally.init(`${process.env.NEXT_PUBLIC_RALLY_CLIENT_ID}`, configuration);
   }
   return (<>
     {<rally-checkout-button suppressHydrationWarning={true} custom-class={customClass} custom-text={props.customText} loader="true">
