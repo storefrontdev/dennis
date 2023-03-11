@@ -24,6 +24,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/navigation.js", "app/page.tsx", "app/components/cart.jsx", "lib/rally/cart-button.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/navigation.js", "app/page.tsx", "components/cart/cart.jsx", "components/cart/cart-button.jsx"],
   "exclude": ["node_modules"]
 }

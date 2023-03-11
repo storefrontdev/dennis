@@ -20,4 +20,4 @@ const CartButton = (props) => {
   )
 }
 
-export default CartButton;
+export { CartButton };

@@ -4,16 +4,9 @@ import React, { useContext, useEffect } from 'react';
 import Image from 'next/image';
 import { Cross2Icon, UpdateIcon } from '@radix-ui/react-icons';
 import { useCart } from '@/lib/swell/hooks';
-import { swell } from "@/lib/swell/init/client";
-import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StorefrontContext } from '@/providers/storefront-provider';
-
-const CartButton = dynamic(() => import('../../lib/rally/cart-button'), {
-  loading: () => <p className="text-xs">Loading Checkout Button...</p>,
-  ssr: false,
-})
-
+import { CartButton } from './cart-button';
 
 const Cart = () => {
 
