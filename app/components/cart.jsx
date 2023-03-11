@@ -136,7 +136,7 @@ const Cart = () => {
                 </div>
                 <div className="flex flex-col w-full pb-5">
                   <div className="mt-5 flex flex-col w-full items-center">
-                    <CartButton swell={swell} customText="Proceed to Checkout" customClass="flex items-center justify-center w-full px-8 py-5 rounded-sm border border-transparent bg-bright-blue-900 text-base font-medium text-white shadow-sm" />
+                    <CartButton customText="Proceed to Checkout" customClass="flex items-center justify-center w-full px-8 py-5 rounded-sm border border-transparent bg-bright-blue-900 text-base font-medium text-white shadow-sm" />
                     <button type="button" onClick={() => clearCart().then(getCart())} className="mt-3 cursor-pointer">Clear Cart</button>
                   </div>
                 </div>
