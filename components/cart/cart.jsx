@@ -2,11 +2,16 @@
 
 import React, { useContext, useEffect } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic'
 import { Cross2Icon, UpdateIcon } from '@radix-ui/react-icons';
 import { useCart } from '@/lib/swell/hooks';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StorefrontContext } from '@/providers/storefront-provider';
-import { CartButton } from './cart-button';
+
+const CartButton = dynamic(() => import('./cart-button'), {
+  loading: () => <p>Loading...</p>,
+})
+
 
 const Cart = () => {
 
@@ -116,7 +121,7 @@ const Cart = () => {
                     </motion.div>
                   ))}
               </motion.div>
-              <div>
+              <div className="w-full">
                 <div className="flex flex-col px-3 py-5 border-t border-gray-200 divide-y divide-gray-200">
                   <div className="flex justify-between py-2">
                     <p className="text-sm">Subtotal</p>
