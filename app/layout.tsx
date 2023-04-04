@@ -1,7 +1,7 @@
 import './globals.css'
 
 import Navigation from '@/app/components/navigation'
-import Cart from '@/components/cart/cart'
+import { Cart } from '@/components/cart/cart'
 import { StorefrontProvider } from '@/providers/storefront-provider'
 export default function RootLayout({
   children,

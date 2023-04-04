@@ -14,8 +14,7 @@ const CartButton = ({customClass, customText}) => {
 
 
   return (
-    <rally-checkout-button suppressHydrationWarning={true} custom-class={customClass} custom-text={customText} loader="true">
-    </rally-checkout-button>
+    <rally-checkout-button suppressHydrationWarning={true} custom-class={customClass} custom-text={customText} loader="true" />
   )
 }
 

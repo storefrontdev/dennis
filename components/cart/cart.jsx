@@ -3,10 +3,12 @@
 import React, { useContext, useEffect } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic'
-import { Cross2Icon, UpdateIcon } from '@radix-ui/react-icons';
+
 import { useCart } from '@/lib/swell/hooks';
-import { motion, AnimatePresence } from 'framer-motion';
 import { StorefrontContext } from '@/providers/storefront-provider';
+
+import { Cross2Icon, UpdateIcon } from '@radix-ui/react-icons';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const CartButton = dynamic(() => import('./cart-button'), {
   loading: () => <p>Loading...</p>,
@@ -147,4 +149,4 @@ const Cart = () => {
   )
 };
 
-export default Cart;
+export { Cart };
